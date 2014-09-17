@@ -1,5 +1,70 @@
 <?php
-  if (isset($_POST['u']) && isset($_POST['p']) && isset($_POST['m'])) {
-    $user=$_POST['u'];
-    $pass=$_POST['p'];
-    $mail=$_POST['m'];
+  if (isset($_POST['c'])) {
+    $con = mysqli_connect("localhost", "rilega", "rilega", "rilega");
+    if (mysqli_connect_errno()) {
+      echo "Failed to connect to MySQL: ".mysqli_connect_error();
+    }
+    $code = $_POST['c'];
+    $code = mysqli_real_escape_string($con, $code);
+    $sql = "SELECT * FROM rilega WHERE code = '$code'";
+    $result = mysqli_query($con, $sql);
+    if (!$result) {
+      die('Error: '.mysqli_error($con));
+    }
+    $sql = "UPDATE rilega SET active = 1 WHERE code = $code";
+    $result = mysqli_query($con, $sql);
+    if (!$result) {
+      die('Error: '.mysqli_error($con));
+    }
+    header("Content-Type: text/plain");
+    echo "Activated";
+  }
+  else if (isset($_POST['u']) && isset($_POST['p']) && isset($_POST['m'])) {
+    $con = mysqli_connect("localhost", "rilega", "rilega", "rilega");
+    if (mysqli_connect_errno()) {
+      echo "Failed to connect to MySQL: ".mysqli_connect_error();
+    }
+    $user = $_POST['u'];
+    $pass = $_POST['p'];
+    $mail = $_POST['m'];
+    $user = mysqli_real_escape_string($con, $user);
+    $pass = mysqli_real_escape_string($con, $pass);
+    $mail = mysqli_real_escape_string($con, $mail);
+    $pass = sha1($pass);
+    $sql = "SELECT * FROM rilega WHERE user = '$user'";
+    $result = mysqli_query($con, $sql);
+    if (!$result)
+      die('Error: '.mysqli_error($con));
+    }
+    $count = mysqli_num_rows($result);
+    if ($count == 0) {
+      $code = sha1(mt_rand());
+      $sql = "INSERT INTO rilega (user, pass, mail, code, active) VALUES ('$user', '$pass', '$mail', '$code', '')";
+      if (!mysqli_query($con, $sql)) {
+        die('Error: '.mysqli_error($con));
+      }
+      mail($mail, "Rile.ga registration code", "Please open this link in your browser: http://rile.ga/register/?c=$code");
+      header("Content-Type: text/plain");
+      echo "You should receive an email with a confirmation conde soon.";
+    }
+    else {
+      header("Content-Type: text/plain");
+      echo "Please choose a different username.";
+    }
+    mysqli_close($con);
+  }
+  else {
+    echo <<<EOF
+<html>
+  <body>
+    <form action = "http://rile.ga/register" method = "POST">
+      <input name = "m"></>Your email<br>
+      <input name = "u"></>Username<br>
+      <input name = "p"></>Password<br>
+      <button type = "submit">Register</button>
+    </form>
+  </body>
+</html>
+EOF;
+  }
+?>
