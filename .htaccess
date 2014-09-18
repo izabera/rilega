@@ -1,0 +1,20 @@
+RewriteEngine On
+RewriteRule ^(......)$ index.php?pdf=$1&v=last
+RewriteRule ^(......)/v(.+)$ index.php?pdf=$1&v=$2
+
+RewriteRule ^(......)/pdf$ index.php?pdf=$1&v=last
+RewriteRule ^(......)/src$ index.php?src=$1&v=last
+RewriteRule ^(......)/log$ index.php?log=$1&v=last
+RewriteRule ^(......)/png$ index.php?png=$1&v=last&p=1
+RewriteRule ^(......)/png/p(.+)$ index.php?png=$1&v=last&p=$2
+
+RewriteRule ^(......)/pdf/v(.+)$ index.php?pdf=$1&v=$2
+RewriteRule ^(......)/src/v(.+)$ index.php?src=$1&v=$2
+RewriteRule ^(......)/log/v(.+)$ index.php?log=$1&v=$2
+RewriteRule ^(......)/png/v(.+)$ index.php?png=$1&v=$2&p=1
+RewriteRule ^(......)/png/v(.+)/p(.+)$ index.php?png=$1&v=$2&p=$3
+
+RewriteRule ^user/(.+)$ index.php?user=$1
+RewriteRule ^register$ index.php?register
+RewriteRule ^doc$ index.php?doc
+RewriteRule ^license$ index.php?license
