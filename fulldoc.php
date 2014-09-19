@@ -10,7 +10,7 @@ Table of contents
 - File visibility
 - Directory structure
 - Limitations
-- Paying users' restrictions
+- Supporters restrictions
 - Fair usage
 - Why this instead of RandomOtherService?
 - Bugs
@@ -50,7 +50,6 @@ rilega=   required
 
 c=        optional
           tells us which compiler to use
-          available options: pdftex, pdflatex, xetex, xelatex, luatex, lualatex
           if not specified or invalid, pdflatex will be used
           overridden by arara directives
 
@@ -149,7 +148,7 @@ If your output is bigger, a notice will be displayed instead.
 
 
 
-Paying users' restrictions
+Supporters restrictions
 ========
 
 If you donate 10 USD or more, all these limitations are gone forever.
