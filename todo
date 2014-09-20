@@ -1,0 +1,25 @@
+upload
+compile
+convert in png
+diff
+log
+
+how do we save all of this?
+user uploads the file
+user gets an id 012345
+file is saved to /var/www/rilega/public_html/012345-0.tex
+new versions are saved to /var/www/rilega/public_html/012345-n.tex
+
+pdfs are /var/www/rilega/public_html/012345-n.pdf
+pngs are /var/www/rilega/public_html/012345-n.png
+logs are /var/www/rilega/public_html/012345-n.log
+diffs are /var/www/rilega/public_html/012345-n1-n2.diff
+if 012345-n1-n2.diff exists, serve it when requested 012345-n2-n1.diff
+
+pdfs & logs generated at compile time
+diffs & pngs generated at first request
+
+when a user registers, save a file /var/www/rilega/public_html/users/nickname
+echo $hash $randomnum > /var/www/rilega/public_html/users/nickname
+echo 012345 >> /var/www/rilega/public_html/users/nickname
+
